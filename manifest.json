@@ -9,7 +9,7 @@
   },
   "content_scripts": [{
   	"matches":["<all_urls>"],
-  	"js":["contentscripts/tracker.js"]
+  	"js":["jquery-1.11.1.min.js", "contentscripts/tracker.js"]
   }],
   "manifest_version": 2
 }
