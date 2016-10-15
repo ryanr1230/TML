@@ -1,0 +1,15 @@
+{
+  "name": "TML",
+  "short_name":"TML",
+  "description": "Share your browser history in real time!",
+  "version": "0.0.1",
+  "permissions": ["storage"],
+  "background": {
+    "scripts": ["extensionscripts/updater.js"]
+  },
+  "content_scripts": [{
+  	"matches":["<all_urls>"],
+  	"js":["contentscripts/tracker.js"]
+  }],
+  "manifest_version": 2
+}
