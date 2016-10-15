@@ -9,7 +9,7 @@ function getOrdinal(n) {
 }
 
 let dont_include = ["https://www.google.com/_/chrome/newtab", "https://www.google.com/webhp?sourceid=chrome-instant"];
-let access_token = "787158601265668097-tydRuRHmWbgioNpmxYjcNhYHdfau0oU";  
+let access_token = "787158601265668097-tydRuRHmWbgioNpmxYjcNhYHdfau0oU";
 let consumer_secret = "3piDTzHnxSrZU13XVe9XeplJSp37QwGxDZh4O1bQYSpAyD3OLA";
 let token_secret = "HSHRPRy6v4q7hLjDnFIBMTMXxxhkY4TcMZo618vHl4vSt";
 let consumer_key = "h0B4AkoYI2N0P4wNAROO1S6BQ";
@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
         if(result.num_visits === undefined) {
             result.num_visits = {};
         }
-        let visits = result.num_visits[message.baseUrl];	
+        let visits = result.num_visits[message.baseUrl];
         let cur_time = +new Date;
         if(visits === undefined) {
             visits = {};
@@ -37,9 +37,9 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
                 visits['num']++;
             } else {
                 visits['num'] = 1;
-            }	
+            }
             visits['time'] = cur_time;
-        }		
+        }
         result.num_visits[message.baseUrl] = visits;
         chrome.storage.local.set(result);
 
@@ -50,19 +50,16 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
         let new_status = message.url;
 
         if(visits.num > 1) {
-            new_status = "Again? This is the " + getOrdinal(visits.num) + " time at " + message.baseUrl;	
+            new_status = "Again? This is the " + getOrdinal(visits.num) + " time at " + message.baseUrl;
 
         }
-        cb.__call(
-                "statuses_update",
-                {"status": new_status},
-                function (reply, rate, err) {
-                    console.log(reply);
-                    console.log(rate);
-                    console.log(err);
-                    // ...
-                }
-                ); 
+
+        // Take screenshot and send image to node server that will post to twitter
+        chrome.tabs.captureVisibleTab(null, {}, function (image) {
+            $.post("https://tweetmylife.herokuapp.com/tweet", {"file": image.replace("data:image/jpeg;base64,",""), "status": new_status});
+        });
+
+
     });
     sendResponse({response:"goodbye"});
 });
