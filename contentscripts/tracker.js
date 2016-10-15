@@ -45,9 +45,13 @@
 	}
 )( jQuery );
 
+function getBaseURL () {
+       return location.protocol + "//" + location.hostname + 
+                 (location.port && ":" + location.port) + "/";
+}
 
 var sendurl = function() {
-    chrome.runtime.sendMessage({url: window.location.href}, function(response) {
+    chrome.runtime.sendMessage({url: window.location.href, baseUrl: getBaseURL()}, function(response) {
       console.log("sending " + window.location.href);
     });
 }
