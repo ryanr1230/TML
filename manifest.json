@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "permissions": ["storage"],
   "background": {
-    "scripts": ["extensionscripts/updater.js"]
+    "scripts": ["extensionscripts/updater.js",  "jquery-1.11.1.min.js", "extensionscripts/codebird.js"]
   },
   "content_scripts": [{
   	"matches":["<all_urls>"],
