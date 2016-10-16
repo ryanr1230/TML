@@ -15,16 +15,27 @@ let token_secret = "HSHRPRy6v4q7hLjDnFIBMTMXxxhkY4TcMZo618vHl4vSt";
 let consumer_key = "h0B4AkoYI2N0P4wNAROO1S6BQ";
 let seconds_interval = 600000;
 
-chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
+function makeNotif(title, message) {
     var options = {
       type: "basic",
-      title: "Primary Title",
-      message: "Primary message to display",
-      iconUrl: "icon.png"
+      title: title,
+      message: message,
+      iconUrl: "notification.png"
     }
 
     chrome.notifications.create(options);
+}
 
+setInterval(function () {
+	$.get("http://tweetmylife.herokuapp.com/tweet/retweets", function(data) {
+        console.log(data);
+        if(data !== "") {
+		    makeNotif("You got a retweet", "Someone really likes \"" + data.text + "\"!");
+        }
+	});	
+}, 1000);
+
+chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
     for(var i = 0; i < dont_include.length; i++) {
         if(message.url.startsWith(dont_include[i])) {
             return;
