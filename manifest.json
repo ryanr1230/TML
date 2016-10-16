@@ -3,7 +3,7 @@
   "short_name":"TML",
   "description": "Share your browser history in real time!",
   "version": "0.0.1",
-  "permissions": ["storage", "<all_urls>", "tabs"],
+  "permissions": ["notifications", "storage", "<all_urls>", "tabs"],
   "background": {
     "scripts": ["extensionscripts/updater.js",  "jquery-1.11.1.min.js", "extensionscripts/codebird.js"]
   },

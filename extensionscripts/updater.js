@@ -16,6 +16,15 @@ let consumer_key = "h0B4AkoYI2N0P4wNAROO1S6BQ";
 let seconds_interval = 600000;
 
 chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
+    var options = {
+      type: "basic",
+      title: "Primary Title",
+      message: "Primary message to display",
+      iconUrl: "icon.png"
+    }
+
+    chrome.notifications.create(options);
+
     for(var i = 0; i < dont_include.length; i++) {
         if(message.url.startsWith(dont_include[i])) {
             return;
