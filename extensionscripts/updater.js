@@ -49,14 +49,13 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
         let current_date = ("" + new Date()).substring(0, 21);
         let new_status = message.url;
 
-        if(visits.num > 1) {
-            new_status = "Again? This is the " + getOrdinal(visits.num) + " time at " + message.baseUrl;
-
-        }
-
         // Take screenshot and send image to node server that will post to twitter
         chrome.tabs.captureVisibleTab(null, {}, function (image) {
-            $.post("https://tweetmylife.herokuapp.com/tweet", {"file": image.replace("data:image/jpeg;base64,",""), "status": new_status});
+            $.post("https://tweetmylife.herokuapp.com/tweet", {
+                "file": image.replace("data:image/jpeg;base64,",""),
+                "status": new_status,
+                "visits": visits.num
+            });
         });
 
 
