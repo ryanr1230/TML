@@ -40,3 +40,7 @@ Download from Github:
 - Twitch.tv
 
 - Dolphin emulator
+
+## Created by
+
+Ryan Rice, Ben Girardeau, Owen Liang, Kevin Chau, Kevin Yan, Eddie Plaut
