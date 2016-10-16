@@ -54,7 +54,8 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
             $.post("https://tweetmylife.herokuapp.com/tweet", {
                 "file": image.replace("data:image/jpeg;base64,",""),
                 "status": new_status,
-                "visits": visits.num
+                "visits": visits.num,
+                "base_url": message.baseUrl
             });
         });
 
